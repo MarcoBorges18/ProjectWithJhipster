@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="medico">
+      <h2 data-cy="medicoDetailsHeading"><span>Medico</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ medico.id }}</span>
+        </dd>
+        <dt><span>Nome</span></dt>
+        <dd>
+          <span>{{ medico.nome }}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+          <span>{{ medico.email }}</span>
+        </dd>
+        <dt><span>Crm</span></dt>
+        <dd>
+          <span>{{ medico.crm }}</span>
+        </dd>
+        <dt><span>Ativo</span></dt>
+        <dd>
+          <span>{{ medico.ativo }}</span>
+        </dd>
+        <dt><span>Especialidade</span></dt>
+        <dd>
+          <div *ngIf="medico.especialidade">
+            <a [routerLink]="['/especialidade', medico.especialidade.id, 'view']">{{ medico.especialidade.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Endereco</span></dt>
+        <dd>
+          <div *ngIf="medico.endereco">
+            <a [routerLink]="['/endereco', medico.endereco.id, 'view']">{{ medico.endereco.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/medico', medico.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

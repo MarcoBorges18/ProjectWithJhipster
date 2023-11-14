@@ -11,7 +11,17 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163016_added_entity_Endereco.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163116_added_entity_Plano.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163216_added_entity_Especialidade.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163316_added_entity_Paciente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163416_added_entity_Medico.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163516_added_entity_TipoConsulta.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163616_added_entity_Agendamento.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20231113163316_added_entity_constraints_Paciente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163416_added_entity_constraints_Medico.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231113163616_added_entity_constraints_Agendamento.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

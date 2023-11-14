@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="TipoConsultaHeading">
+    <span>Tipo Consultas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tipo-consulta"
+        [routerLink]="['/tipo-consulta/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Criar novo Tipo Consulta</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tipoConsultas?.length === 0">
+    <span>Nenhum Tipo Consulta encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="tipoConsultas && tipoConsultas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nome">
+            <div class="d-flex">
+              <span>Nome</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="tempo">
+            <div class="d-flex">
+              <span>Tempo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="valorConsulta">
+            <div class="d-flex">
+              <span>Valor Consulta</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipoConsulta of tipoConsultas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tipo-consulta', tipoConsulta.id, 'view']">{{ tipoConsulta.id }}</a>
+          </td>
+          <td>{{ tipoConsulta.nome }}</td>
+          <td>{{ tipoConsulta.tempo | formatMediumDate }}</td>
+          <td>{{ tipoConsulta.valorConsulta }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/tipo-consulta', tipoConsulta.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">Vizualizar</span>
+              </a>
+
+              <a [routerLink]="['/tipo-consulta', tipoConsulta.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(tipoConsulta)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Deletar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="tipoConsultas && tipoConsultas.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

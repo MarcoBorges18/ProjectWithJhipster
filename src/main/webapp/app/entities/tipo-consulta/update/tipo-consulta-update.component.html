@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-tipo-consulta-heading" data-cy="TipoConsultaCreateUpdateHeading">Criar ou editar Tipo Consulta</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+          <div *ngIf="editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nome')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tempo">Tempo</label>
+          <div class="input-group">
+            <input
+              id="field_tempo"
+              data-cy="tempo"
+              type="text"
+              class="form-control"
+              name="tempo"
+              ngbDatepicker
+              #tempoDp="ngbDatepicker"
+              formControlName="tempo"
+            />
+            <button type="button" class="btn btn-secondary" (click)="tempoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('tempo')!.invalid && (editForm.get('tempo')!.dirty || editForm.get('tempo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('tempo')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorConsulta">Valor Consulta</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorConsulta"
+            id="field_valorConsulta"
+            data-cy="valorConsulta"
+            formControlName="valorConsulta"
+          />
+          <div
+            *ngIf="
+              editForm.get('valorConsulta')!.invalid && (editForm.get('valorConsulta')!.dirty || editForm.get('valorConsulta')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('valorConsulta')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('valorConsulta')?.errors?.number"
+              >Translation missing for entity.validation.number</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

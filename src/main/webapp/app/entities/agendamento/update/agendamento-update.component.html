@@ -1,0 +1,99 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-agendamento-heading" data-cy="AgendamentoCreateUpdateHeading">Criar ou editar Agendamento</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorFinal">Valor Final</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorFinal"
+            id="field_valorFinal"
+            data-cy="valorFinal"
+            formControlName="valorFinal"
+          />
+          <div *ngIf="editForm.get('valorFinal')!.invalid && (editForm.get('valorFinal')!.dirty || editForm.get('valorFinal')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('valorFinal')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('valorFinal')?.errors?.number"
+              >Translation missing for entity.validation.number</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_medico">Medico</label>
+          <select
+            class="form-control"
+            id="field_medico"
+            data-cy="medico"
+            name="medico"
+            formControlName="medico"
+            [compareWith]="compareMedico"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="medicoOption" *ngFor="let medicoOption of medicosSharedCollection">{{ medicoOption.nome }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paciente">Paciente</label>
+          <select
+            class="form-control"
+            id="field_paciente"
+            data-cy="paciente"
+            name="paciente"
+            formControlName="paciente"
+            [compareWith]="comparePaciente"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="pacienteOption" *ngFor="let pacienteOption of pacientesSharedCollection">{{ pacienteOption.nome }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tipo">Tipo</label>
+          <select
+            class="form-control"
+            id="field_tipo"
+            data-cy="tipo"
+            name="tipo"
+            formControlName="tipo"
+            [compareWith]="compareTipoConsulta"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="tipoConsultaOption" *ngFor="let tipoConsultaOption of tipoConsultasSharedCollection">
+              {{ tipoConsultaOption.nome }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Agendamento.
+    -->
+    <changeSet id="20231113163616-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="medico_id"
+                                 baseTableName="agendamento"
+                                 constraintName="fk_agendamento__medico_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="medico"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="paciente_id"
+                                 baseTableName="agendamento"
+                                 constraintName="fk_agendamento__paciente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paciente"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="tipo_id"
+                                 baseTableName="agendamento"
+                                 constraintName="fk_agendamento__tipo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_consulta"
+                                 />
+    </changeSet>
+</databaseChangeLog>

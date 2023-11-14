@@ -1,0 +1,104 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-medico-heading" data-cy="MedicoCreateUpdateHeading">Criar ou editar Medico</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+          <div *ngIf="editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nome')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_crm">Crm</label>
+          <input type="text" class="form-control" name="crm" id="field_crm" data-cy="crm" formControlName="crm" />
+          <div *ngIf="editForm.get('crm')!.invalid && (editForm.get('crm')!.dirty || editForm.get('crm')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('crm')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ativo">Ativo</label>
+          <input type="checkbox" class="form-check" name="ativo" id="field_ativo" data-cy="ativo" formControlName="ativo" />
+          <div *ngIf="editForm.get('ativo')!.invalid && (editForm.get('ativo')!.dirty || editForm.get('ativo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('ativo')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_especialidade">Especialidade</label>
+          <select
+            class="form-control"
+            id="field_especialidade"
+            data-cy="especialidade"
+            name="especialidade"
+            formControlName="especialidade"
+            [compareWith]="compareEspecialidade"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="especialidadeOption" *ngFor="let especialidadeOption of especialidadesCollection">
+              {{ especialidadeOption.nome }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_endereco">Endereco</label>
+          <select
+            class="form-control"
+            id="field_endereco"
+            data-cy="endereco"
+            name="endereco"
+            formControlName="endereco"
+            [compareWith]="compareEndereco"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="enderecoOption" *ngFor="let enderecoOption of enderecosCollection">{{ enderecoOption.logradouro }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

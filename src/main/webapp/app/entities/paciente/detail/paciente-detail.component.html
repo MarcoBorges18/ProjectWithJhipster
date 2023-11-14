@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="paciente">
+      <h2 data-cy="pacienteDetailsHeading"><span>Paciente</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ paciente.id }}</span>
+        </dd>
+        <dt><span>Nome</span></dt>
+        <dd>
+          <span>{{ paciente.nome }}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+          <span>{{ paciente.email }}</span>
+        </dd>
+        <dt><span>Cpf</span></dt>
+        <dd>
+          <span>{{ paciente.cpf }}</span>
+        </dd>
+        <dt><span>Telefone</span></dt>
+        <dd>
+          <span>{{ paciente.telefone }}</span>
+        </dd>
+        <dt><span>Ativo</span></dt>
+        <dd>
+          <span>{{ paciente.ativo }}</span>
+        </dd>
+        <dt><span>Plano</span></dt>
+        <dd>
+          <div *ngIf="paciente.plano">
+            <a [routerLink]="['/plano', paciente.plano.id, 'view']">{{ paciente.plano.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Endereco</span></dt>
+        <dd>
+          <div *ngIf="paciente.endereco">
+            <a [routerLink]="['/endereco', paciente.endereco.id, 'view']">{{ paciente.endereco.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/paciente', paciente.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+      </button>
+    </div>
+  </div>
+</div>
